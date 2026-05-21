@@ -1,0 +1,69 @@
+{
+  "title": "Gupy.io Jobs Scraper",
+  "description": "Collect job listings from the public Gupy portal. Use a Gupy search URL for exact portal filters or use keyword and location for a simpler setup.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "url": {
+      "title": "Gupy search URL",
+      "type": "string",
+      "description": "A URL from portal.gupy.io/job-search. If provided, the actor uses the filters from this URL first.",
+      "editor": "textfield",
+      "prefill": "https://portal.gupy.io/job-search/sortBy=publishedDate"
+    },
+    "keyword": {
+      "title": "Keyword",
+      "type": "string",
+      "description": "Optional job keyword when you do not want to use a full Gupy URL.",
+      "editor": "textfield"
+    },
+    "location": {
+      "title": "Location",
+      "type": "string",
+      "description": "Optional city or state, for example Sao Paulo, Sao Paulo - SP, or Pernambuco.",
+      "editor": "textfield"
+    },
+    "sortBy": {
+      "title": "Sort by",
+      "type": "string",
+      "description": "Sort order used when you build the search from keyword and location.",
+      "editor": "select",
+      "default": "publishedDate",
+      "enum": [
+        "publishedDate"
+      ],
+      "enumTitles": [
+        "Published date"
+      ]
+    },
+    "results_wanted": {
+      "title": "Results wanted",
+      "type": "integer",
+      "description": "Maximum number of jobs to collect.",
+      "editor": "number",
+      "minimum": 1,
+      "default": 20,
+      "prefill": 20
+    },
+    "max_pages": {
+      "title": "Max pages",
+      "type": "integer",
+      "description": "Safety limit for paginated API requests.",
+      "editor": "number",
+      "minimum": 1,
+      "default": 1,
+      "prefill": 1
+    },
+    "proxyConfiguration": {
+      "title": "Proxy configuration",
+      "type": "object",
+      "description": "Optional Apify proxy settings.",
+      "editor": "proxy",
+      "default": {
+        "useApifyProxy": false
+      }
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

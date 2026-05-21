@@ -1,0 +1,62 @@
+{
+  "actorSpecification": 1,
+  "views": {
+    "overview": {
+      "title": "Overview",
+      "transformation": {
+        "fields": [
+          "jobId",
+          "title",
+          "company",
+          "location",
+          "workplaceTypeLabel",
+          "jobTypeLabel",
+          "publishedDate",
+          "applicationDeadline",
+          "jobUrl"
+        ]
+      },
+      "display": {
+        "component": "table",
+        "properties": {
+          "jobId": {
+            "label": "Job ID",
+            "format": "number"
+          },
+          "title": {
+            "label": "Job Title",
+            "format": "text"
+          },
+          "company": {
+            "label": "Company",
+            "format": "text"
+          },
+          "location": {
+            "label": "Location",
+            "format": "text"
+          },
+          "workplaceTypeLabel": {
+            "label": "Work Model",
+            "format": "text"
+          },
+          "jobTypeLabel": {
+            "label": "Job Type",
+            "format": "text"
+          },
+          "publishedDate": {
+            "label": "Published",
+            "format": "date"
+          },
+          "applicationDeadline": {
+            "label": "Deadline",
+            "format": "date"
+          },
+          "jobUrl": {
+            "label": "Job URL",
+            "format": "link"
+          }
+        }
+      }
+    }
+  }
+}
