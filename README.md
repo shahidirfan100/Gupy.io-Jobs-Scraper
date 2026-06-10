@@ -1,32 +1,34 @@
 # Gupy.io Jobs Scraper
 
-Collect job listings from the Gupy jobs portal in a clean, analysis-ready format. Capture job titles, companies, locations, work models, publish dates, application deadlines, descriptions, skills, and direct job links at scale.
+Extract comprehensive job listings from the Gupy jobs portal with ease. Scrape vacancy details including job titles, companies, locations, descriptions, work models, and direct application links at scale. Perfect for job market monitoring, recruitment analysis, and lead generation.
+
+---
 
 ## Features
 
-- **Portal URL support** - Use a `portal.gupy.io/job-search` URL to preserve the exact filters you see on the site
-- **Keyword and location search** - Build a search without copying a full URL
-- **Pagination controls** - Limit both the number of results and the number of pages
-- **Normalized output** - Get consistent field names with empty values omitted from the dataset
-- **Store-ready dataset** - Save structured job records for analysis, monitoring, or export
+- **Portal URL support** — Extract jobs directly using a `portal.gupy.io/job-search` URL to preserve all filters.
+- **Keyword and location search** — Find jobs by keyword and location without needing a full URL.
+- **Pagination controls** — Limit the number of results and pages to manage usage and scraping speed.
+- **Normalized output** — Get clean, structured datasets with consistent field names.
+- **Ready-to-use datasets** — Export job records for market analysis, lead generation, or custom databases.
+
+---
 
 ## Use Cases
 
 ### Job Market Research
-
 Track hiring volume, job titles, and location patterns across the Gupy ecosystem. Build datasets for recruiting research, salary benchmarking support, or trend analysis.
 
 ### Lead Generation
-
 Identify companies hiring for specific roles, regions, or work models. Use the dataset to monitor employers and career pages relevant to your niche.
 
 ### Competitive Intelligence
-
 Compare open roles, publication cadence, and workplace models across employers. Spot which companies are growing, hiring remotely, or expanding into new locations.
 
 ### Recruitment Automation
-
 Feed job results into spreadsheets, internal dashboards, or workflow tools. Use recurring runs to keep job pipelines fresh without manual searching.
+
+---
 
 ## Input Parameters
 
@@ -35,14 +37,16 @@ Feed job results into spreadsheets, internal dashboards, or workflow tools. Use 
 | `url` | String | No | `https://portal.gupy.io/job-search/sortBy=publishedDate` | Gupy search URL from `portal.gupy.io/job-search`. If provided, its filters are used first. |
 | `keyword` | String | No | — | Optional job keyword when you do not want to use a full URL. |
 | `location` | String | No | — | Optional city or state such as `Sao Paulo`, `Sao Paulo - SP`, or `Pernambuco`. |
-| `sortBy` | String | No | `publishedDate` | Sort order used when searching with keyword and location. |
+| `sortBy` | String | No | `"publishedDate"` | Sort order used when searching with keyword and location. |
 | `results_wanted` | Integer | No | `20` | Maximum number of jobs to collect. |
 | `max_pages` | Integer | No | `1` | Safety cap for pagination. |
 | `proxyConfiguration` | Object | No | `{"useApifyProxy": false}` | Optional Apify proxy settings. |
 
+---
+
 ## Output Data
 
-Each dataset item can contain:
+Each item in the dataset contains:
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -72,7 +76,7 @@ Each dataset item can contain:
 | `skills` | Array | Skills when present. |
 | `sourceUrl` | String | Source search URL used for the run. |
 
-Empty values are not stored, so records stay compact and easier to work with.
+---
 
 ## Usage Examples
 
@@ -106,15 +110,7 @@ Empty values are not stored, so records stay compact and easier to work with.
 }
 ```
 
-### Filtered Portal URL
-
-```json
-{
-  "url": "https://portal.gupy.io/job-search/workplaceTypes[]=remote",
-  "results_wanted": 40,
-  "max_pages": 3
-}
-```
+---
 
 ## Sample Output
 
@@ -147,47 +143,96 @@ Empty values are not stored, so records stay compact and easier to work with.
 }
 ```
 
+---
+
 ## Tips for Best Results
 
-### Use Real Portal URLs for Complex Filters
+### Use Real Portal URLs
+- Copy the full Gupy search URL from your browser when you need exact work model, job type, or date filters.
+- This ensures the scraper uses the precise parameters you configured visually on the website.
 
-When you need exact work model or job type filters, copy the full Gupy search URL from your browser. This is the easiest way to mirror what you see on the portal.
+### Start with Small Batches
+- Use a low `results_wanted` (e.g., 20) and limit `max_pages` to 1 or 2 during testing.
+- This allows you to verify your query configuration before initiating large scraping runs.
 
-### Start Small
+### Optimize Location Queries
+- Input clear location details like `Sao Paulo`, `Rio de Janeiro - RJ`, or full state names like `Parana`.
+- This matches the portal's search engine standards for cleaner and more relevant filtering.
 
-Use `results_wanted: 20` and `max_pages: 1` or `2` while validating a new search. Increase limits once you confirm the search returns the right kind of jobs.
+### Control Large Crawls
+- Large queries can return thousands of results, which consumes more resources.
+- Set a sensible limit using `results_wanted` and `max_pages` to keep runs fast and cost-efficient.
 
-### Use Clear Location Inputs
-
-For better filtering, use values such as `Sao Paulo`, `Sao Paulo - SP`, or full state names like `Pernambuco`.
-
-### Watch Large Searches
-
-Broad searches can return thousands of jobs. Set `max_pages` intentionally to control runtime and output size.
+---
 
 ## Proxy Configuration
 
-If you want to route requests through Apify Proxy:
+For reliable scraping and to avoid rate limits, residential proxies are recommended:
 
 ```json
 {
   "proxyConfiguration": {
-    "useApifyProxy": true
+    "useApifyProxy": true,
+    "apifyProxyGroups": ["RESIDENTIAL"]
   }
 }
 ```
 
+---
+
 ## Integrations
 
-- **Google Sheets** - Export job data for reporting
-- **Airtable** - Build searchable hiring databases
-- **Zapier** - Trigger follow-up workflows
-- **Make** - Connect recurring job runs to other tools
-- **Webhooks** - Send results into your own systems
+Connect your data with:
 
-## Export Formats
+- **Google Sheets** — Export job listings directly to spreadsheets for easy analysis
+- **Airtable** — Build searchable job boards and hiring pipelines
+- **Zapier** — Automate alerts and downstream workflow triggers
+- **Make** — Connect your runs to hundreds of third-party apps
+- **Webhooks** — Send real-time data to your custom API endpoints
 
-- **JSON** - Ideal for APIs and downstream processing
-- **CSV** - Easy to review in spreadsheets
-- **Excel** - Business reporting and sharing
-- **XML** - Legacy system integrations
+### Export Formats
+
+- **JSON** — For developers and seamless API integrations
+- **CSV** — Ideal for spreadsheet applications and reporting
+- **Excel** — For sharing with business teams
+- **XML** — For legacy system integrations
+
+---
+
+## Frequently Asked Questions
+
+### How many jobs can I scrape?
+You can scrape all public job listings returned by the search query. The exact limit depends on Gupy's platform and pagination restrictions.
+
+### Can I scrape multiple pages?
+Yes, the scraper automatically navigates through pagination up to your defined `max_pages` limit.
+
+### Do I need a Gupy account to use this scraper?
+No, the scraper works with publicly available job search endpoints and does not require credentials or logging in.
+
+### Why are some fields empty in the output?
+Some job listings may not contain optional fields like skills, application deadlines, or specific work models. Empty values are omitted to keep your dataset clean.
+
+### What is the difference between keyword search and using a portal URL?
+Using a portal URL allows you to apply complex filters (like specific work formats or companies) directly from the Gupy website. Keyword search is a simpler way to search for jobs by title or term directly.
+
+### Can I run the scraper on a schedule?
+Yes, you can schedule runs hourly, daily, or weekly using Apify's scheduling tool in the Console.
+
+---
+
+## Support
+
+For issues, feature requests, or custom scraping needs, contact support through the Apify Console.
+
+### Resources
+
+- [Apify Documentation](https://docs.apify.com/)
+- [API Reference](https://docs.apify.com/api/v2)
+- [Scheduling Runs](https://docs.apify.com/schedules)
+
+---
+
+## Legal Notice
+
+This actor is designed for legitimate data collection purposes. Users are responsible for ensuring compliance with website terms of service and applicable laws. Use data responsibly and respect rate limits.
